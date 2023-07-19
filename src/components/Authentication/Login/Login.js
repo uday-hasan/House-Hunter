@@ -1,7 +1,10 @@
 import { Button, Stack, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
+import SnackbarModal from '../../shared/Snackbar';
+import { AuthContext } from '../../Context/UserContext';
 
 const Login = () => {
+    const { setUser } = useContext(AuthContext)
     const handleLogin = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -13,7 +16,11 @@ const Login = () => {
             },
             body: JSON.stringify({ email, password })
         }).then(res => res.json()).then(result => {
-            console.log(result)
+            if (result.success) {
+                console.log(result)
+                localStorage.setItem('user', JSON.stringify({ token: result.token, user: result.user }))
+                setUser(result.user)
+            }
         })
     }
     return (
