@@ -2,8 +2,10 @@ import { Button, Stack, TextField, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import SnackbarModal from '../../shared/Snackbar';
 import { AuthContext } from '../../Context/UserContext';
+import { SnackContext } from '../../Context/SnackBarContext';
 
 const Login = () => {
+    const { open, setOpen, handleClose, severity, setSeverity, message, setMessage } = useContext(SnackContext)
     const { setUser } = useContext(AuthContext)
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -15,11 +17,20 @@ const Login = () => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({ email, password })
-        }).then(res => res.json()).then(result => {
+        }).then(res => {
+            return res.json()
+        }).then(result => {
             if (result.success) {
-                console.log(result)
                 localStorage.setItem('user', JSON.stringify({ token: result.token, user: result.user }))
                 setUser(result.user)
+                setOpen(true)
+                setSeverity('success')
+                setMessage(result.message)
+            }
+            else {
+                setOpen(true)
+                setSeverity('error')
+                setMessage(result.message)
             }
         })
     }
@@ -33,6 +44,9 @@ const Login = () => {
                 <TextField placeholder='Password' name='password'></TextField>
                 <Button type='submit'>LOGIN</Button>
             </Stack>
+            {
+                open && <SnackbarModal open={open} message={message} severity={severity} handleClose={handleClose} />
+            }
         </Stack>
     )
 }

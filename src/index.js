@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import UserContext from './components/Context/UserContext';
+import SnackBarContext from './components/Context/SnackBarContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserContext>
-      <App />
+      <SnackBarContext>
+        <App />
+      </SnackBarContext>
     </UserContext>
   </React.StrictMode>
 );

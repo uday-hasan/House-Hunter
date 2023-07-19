@@ -1,7 +1,12 @@
 import { Button, MenuItem, OutlinedInput, Select, Stack, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import SnackbarModal from '../../shared/Snackbar';
+import { useNavigate } from 'react-router-dom';
+import { SnackContext } from '../../Context/SnackBarContext';
 const Registration = () => {
     const [role, setRole] = useState('House Owner');
+    const { open, setOpen, handleClose, severity, setSeverity, message, setMessage } = useContext(SnackContext)
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -14,7 +19,19 @@ const Registration = () => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({ name, email, mobile, password, role })
-        }).then(res => res.json()).then(result => console.log(result))
+        }).then(res => res.json()).then(result => {
+            if (result.success) {
+                setOpen(true);
+                setSeverity("success");
+                setMessage(result.message + " Please login")
+                navigate('/login/signin')
+            }
+            else {
+                setOpen(true);
+                setSeverity("error");
+                setMessage(result.message)
+            }
+        })
     }
     return (
         <Stack spacing={2} border={'2px solid'} height={'100vh'} width={'50%'} margin={'0 auto'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
@@ -38,6 +55,9 @@ const Registration = () => {
                 <TextField placeholder='Password' name='password'></TextField>
                 <Button type='submit'>REGISTER</Button>
             </Stack>
+            {
+                open && <SnackbarModal open={open} message={message} handleClose={handleClose} severity={severity} />
+            }
         </Stack>
     )
 }

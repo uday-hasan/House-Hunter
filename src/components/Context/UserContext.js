@@ -5,9 +5,6 @@ const UserContext = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    //For Snackbar Modal
-    const [openModal, setOpenModal] = React.useState(false);
-    const handleCloseModal = () => setOpenModal(false)
 
     //Set user from localstorage;
     const member = JSON.parse(localStorage.getItem('user'))
@@ -17,7 +14,7 @@ const UserContext = ({ children }) => {
         setLoading(false)
     }, [member.user])
 
-    const value = { user, setUser, loading, setLoading, open: openModal, setOpen: setOpenModal, handleClose: handleCloseModal };
+    const value = { user, setUser, loading, setLoading };
     return (
         <AuthContext.Provider value={value}>
             {children}
