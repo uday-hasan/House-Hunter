@@ -1,9 +1,11 @@
 import { Box, Button, Typography, styled } from '@mui/material'
 import React from 'react'
 import useFetch from '../hooks/useFetch'
+import { useNavigate } from 'react-router-dom'
 
 const EditHouse = () => {
     const { houses, setHouses } = useFetch()
+    const navigate = useNavigate();
     const handleDelete = (id) => {
         fetch(`http://localhost:4600/owner/${id}`, {
             method: 'DELETE',
@@ -14,6 +16,10 @@ const EditHouse = () => {
             const rest = houses.filter(house => house._id !== id)
             setHouses(rest)
         })
+    }
+
+    const handleEdit = (id) => {
+        navigate(`/dashboard/edit/${id}`);
     }
 
     const TD = styled('td')({
@@ -43,7 +49,7 @@ const EditHouse = () => {
                                 <TD>{house.name}</TD>
                                 <TD>{house.address}</TD>
                                 <TD>{house.city}</TD>
-                                <TD><Button>Edit</Button></TD>
+                                <TD><Button onClick={() => handleEdit(house._id)}>Edit</Button></TD>
                                 <TD><Button onClick={() => handleDelete(house._id)}>Delete</Button></TD>
                             </Typography>)
                         }
