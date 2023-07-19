@@ -1,10 +1,12 @@
 import { Box, Button, Typography, styled } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import useFetch from '../hooks/useFetch'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../Context/UserContext'
 
 const EditHouse = () => {
-    const { houses, setHouses } = useFetch()
+    const { user } = useContext(AuthContext);
+    const { houses, setHouses } = useFetch(`http://localhost:4600/owner/all/?email=${user}`)
     const navigate = useNavigate();
     const handleDelete = (id) => {
         fetch(`http://localhost:4600/owner/${id}`, {

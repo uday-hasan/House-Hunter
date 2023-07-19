@@ -10,6 +10,7 @@ import AddNew from "./components/Dashboard/AddNew";
 import AllHouses from "./components/Dashboard/AllHouses";
 import EditHouse from "./components/Dashboard/EditHouse";
 import EditSingle from "./components/Dashboard/EditSingle";
+import PurchItem from "./components/Home/PurchItem";
 
 function App() {
   const router = createBrowserRouter([
@@ -17,6 +18,9 @@ function App() {
       path: '/', element: <Main />, children: [
         {
           path: '/', element: <Home />
+        },
+        {
+          path: '/purch/:id', element: <PurchItem />
         },
         {
           path: '/dashboard', element: <PrivateRoute><Dashboard /></PrivateRoute>, children: [

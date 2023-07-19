@@ -23,7 +23,7 @@ const Login = () => {
             return res.json()
         }).then(result => {
             if (result.success) {
-                localStorage.setItem('user', JSON.stringify({ token: result.token, user: result.user }))
+                localStorage.setItem('user', JSON.stringify({ token: result.token, user: result.user, role: result.role, details: result.details }))
                 setUser(result.user)
                 setOpen(true)
                 setSeverity('success')

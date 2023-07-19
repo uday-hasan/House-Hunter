@@ -44,7 +44,7 @@ const EditSingle = () => {
     }
     return (
         <Box border={'solid'}>
-            <Typography variant={'h4'} textAlign={'center'} margin={'1em 0'} >Add new house</Typography>
+            <Typography variant={'h4'} textAlign={'center'} margin={'1em 0'} >Edit Previous One</Typography>
             <Stack spacing={2} justifyContent={'center'} alignItems={'center'} component={'form'} onSubmit={handleEdit} >
                 <TextField name='name' placeholder='Name'></TextField>
                 <TextField name='address' placeholder='Address'></TextField>
