@@ -8,11 +8,12 @@ const UserContext = ({ children }) => {
 
     //Set user from localstorage;
     const member = JSON.parse(localStorage.getItem('user'))
+    console.log(member)
     useEffect(() => {
         setLoading(true);
-        setUser(member?.user || null);
+        setUser(member.user || null);
         setLoading(false)
-    }, [member?.user])
+    }, [member.user])
 
     const value = { user, setUser, loading, setLoading };
     return (

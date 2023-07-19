@@ -3,10 +3,12 @@ import React, { useContext } from 'react'
 import SnackbarModal from '../../shared/Snackbar';
 import { AuthContext } from '../../Context/UserContext';
 import { SnackContext } from '../../Context/SnackBarContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { open, setOpen, handleClose, severity, setSeverity, message, setMessage } = useContext(SnackContext)
     const { setUser } = useContext(AuthContext)
+    const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -26,6 +28,7 @@ const Login = () => {
                 setOpen(true)
                 setSeverity('success')
                 setMessage(result.message)
+                navigate('/dashboard');
             }
             else {
                 setOpen(true)

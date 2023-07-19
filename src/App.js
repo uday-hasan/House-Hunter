@@ -3,14 +3,12 @@ import Main from "./layouts/Main";
 import Login from "./components/Authentication/Login/Login";
 import Authentication from "./layouts/Authentication";
 import Registration from "./components/Authentication/Registration/Registration";
-import { useContext } from "react";
-import { AuthContext } from "./components/Context/UserContext";
 import Home from "./components/Home/Home";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
+import AddNew from "./components/Dashboard/AddNew";
 
 function App() {
-  const { user } = useContext(AuthContext);
   const router = createBrowserRouter([
     {
       path: '/', element: <Main />, children: [
@@ -18,7 +16,11 @@ function App() {
           path: '/', element: <Home />
         },
         {
-          path: '/dashboard', element: <PrivateRoute><Dashboard /></PrivateRoute>
+          path: '/dashboard', element: <PrivateRoute><Dashboard /></PrivateRoute>, children: [
+            {
+              path: '/dashboard/add', element: <AddNew />
+            }
+          ]
         },
       ]
     },
