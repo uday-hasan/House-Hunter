@@ -7,6 +7,8 @@ import Home from "./components/Home/Home";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddNew from "./components/Dashboard/AddNew";
+import AllHouses from "./components/Dashboard/AllHouses";
+import EditHouse from "./components/Dashboard/EditHouse";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,6 +21,12 @@ function App() {
           path: '/dashboard', element: <PrivateRoute><Dashboard /></PrivateRoute>, children: [
             {
               path: '/dashboard/add', element: <AddNew />
+            },
+            {
+              path: '/dashboard/edit', element: <EditHouse />
+            },
+            {
+              path: '/dashboard/all', element: <AllHouses />
             }
           ]
         },

@@ -2,9 +2,11 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { SnackContext } from '../Context/SnackBarContext'
 import SnackbarModal from '../shared/Snackbar'
+import { AuthContext } from '../Context/UserContext'
 
 const AddNew = () => {
     const { open, setOpen, handleClose, severity, setSeverity, message, setMessage } = useContext(SnackContext)
+    const { user } = useContext(AuthContext)
     const handleSubmir = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -17,7 +19,7 @@ const AddNew = () => {
         const rent = e.target.rent.value;
         const mobile = e.target.mobile.value;
         const desc = e.target.description.value;
-        const data = { name, address, city, bedrooms, bathrooms, room_size, lastdate, rent, mobile, desc }
+        const data = { name, address, city, bedrooms, bathrooms, room_size, lastdate, rent, mobile, desc, user }
         fetch(`http://localhost:4600/owner/add`, {
             method: "POST",
             headers: {
