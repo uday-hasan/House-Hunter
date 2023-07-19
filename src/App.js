@@ -5,6 +5,9 @@ import Authentication from "./layouts/Authentication";
 import Registration from "./components/Authentication/Registration/Registration";
 import { useContext } from "react";
 import { AuthContext } from "./components/Context/UserContext";
+import Home from "./components/Home/Home";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -12,11 +15,11 @@ function App() {
     {
       path: '/', element: <Main />, children: [
         {
-          path: '/', element: user ? <h1>Home{user}</h1> : <h1>Hello member</h1>
+          path: '/', element: <Home />
         },
         {
-          path: '/', element: <h1>Home</h1>
-        }
+          path: '/dashboard', element: <PrivateRoute><Dashboard /></PrivateRoute>
+        },
       ]
     },
     {
